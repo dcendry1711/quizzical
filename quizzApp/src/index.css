@@ -1,4 +1,49 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: "Karla", sans-serif;
+}
+
+/*Uklad całości*/
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*Układ pytań*/
+
+.single-question {
+  display: flex;
+  margin: 1.2em 5em;
+  gap: 2em;
+  flex-direction: column;
+  align-items: center;
+}
+
+.single-question > h2 {
+  color: #4D5B9E;
+  font-size: 22px;
+  font-weight: 700;
 } 
+
+/* Układ odpowiedzi*/
+
+.answer-container {
+  display: flex;
+  gap: 1em;
+}
+
+.answer-container > button {
+  border: 2px solid #4D5B9E;
+  border-radius: 15px;
+  padding: .5em 1em;
+  color: #4D5B9E;
+  background-color: #FFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+

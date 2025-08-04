@@ -1,55 +1,49 @@
-import { useState } from 'react'
-import { useEffect} from 'react'
-import {decode} from 'html-entities'
+import { useState, useEffect } from 'react'
+import { decode } from 'html-entities'
 
 export function App() {
 
-  /*Request do API w celu pobrania pytań do quizu */
+  const [dataForQuiz, setDataForQuiz] = useState([])
 
   useEffect(() => {
     fetch('https://opentdb.com/api.php?amount=5&difficulty=easy')
       .then(res => res.json())
       .then(data => setDataForQuiz(data.results))
-  },[])
+  }, [])
 
-  /* Tworzenie state do przetrzymywania danych pobranych z API */
+  const questionEl = dataForQuiz.length>0 ?
+    dataForQuiz.map(obj =>{
 
-  const [dataForQuiz, setDataForQuiz] = useState([])
-  
-  const questionEl = dataForQuiz.length > 0 ? 
+      const decodedQuestion = decode(obj.question)
 
-  //co jeśli warunek jest spełniony
-
-    dataForQuiz.map( object => {
-      
-      if (!object.correct_answer || !object.incorrect_answers) return null;
-
-      const decodedQuestion = decode(object.question);
-
-      function shuffle(arr) {
-        const copy = [...arr];
-        for (let i = copy.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [copy[i], copy[j]] = [copy[j], copy[i]];
+      function shuffle(arr){
+        const copy = [...arr]
+        for (let i = copy.length - 1 ; i > 0 ; i--){
+          const j = Math.floor(Math.random()*(i+1))
+          ;[copy[i],copy[j]] = [copy[j],copy[i]]
         }
-        return copy;
+        return copy
       }
 
-      const shuffledAnswers = shuffle([...object.incorrect_answers, object.correct_answer]);
+      const shuffledAns = shuffle([
+        ...obj.incorrect_answers, 
+        obj.correct_answer
+      ])
 
-      return (
-        <section key={object.question} className="question-container">
+      return(
+        <section className="single-question">
           <h2>{decodedQuestion}</h2>
-          {shuffledAnswers.map(answer => (
-            <button key={object.question + answer}>{decode(answer)}</button>
-          ))}
+          <div className="answer-container"> 
+            {shuffledAns.map(ans => <button>{ans}</button>)}
+          </div>
         </section>
-      );
-    })
-  : (<p>Ładowanie pytań...</p>)
+      )
 
-  return(
+    }) : null
+
+  return (
     <main>
       {questionEl}
     </main>
-  )}
+  )
+}
