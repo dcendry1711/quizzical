@@ -4,25 +4,25 @@ import {decode} from 'html-entities'
 
 export function App() {
 
-/*Pobieranie pytań z API*/ 
+  /*Request do API w celu pobrania pytań do quizu */
 
-  useEffect(()=>{
-    fetch('https://opentdb.com/api.php?amount=5')
+  useEffect(() => {
+    fetch('https://opentdb.com/api.php?amount=5&difficulty=easy')
       .then(res => res.json())
-      .then(data => setQuestionArr(data.results))
+      .then(data => setDataForQuiz(data.results))
   },[])
 
+  /* Tworzenie state do przetrzymywania danych pobranych z API */
 
-/* Umieszczanie danych z API w tablicy */
-  const [questionArr, setQuestionArr] = useState([])
+  const [dataForQuiz, setDataForQuiz] = useState([])
+  
+  const questionEl = dataForQuiz.length > 0 ? 
 
-/*Mapowanie pytań z tablicy z danymi z API */
+  //co jeśli warunek jest spełniony
 
- const questionEl = questionArr.length > 0
-  ? questionArr.map(object => {
+    dataForQuiz.map( object => {
+      
       if (!object.correct_answer || !object.incorrect_answers) return null;
-
-      console.log(object.correct_answer)
 
       const decodedQuestion = decode(object.question);
 
@@ -46,13 +46,10 @@ export function App() {
         </section>
       );
     })
-  : <p>Ładowanie pytań...</p>;
+  : (<p>Ładowanie pytań...</p>)
 
-
-  return (
+  return(
     <main>
       {questionEl}
     </main>
-  )
-}
-
+  )}
