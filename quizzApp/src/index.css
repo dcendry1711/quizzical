@@ -4,18 +4,21 @@
   font-family: "Karla", sans-serif;
 }
 
-/*Uklad całości*/
+/* Układ całości */
 
 body {
   background: linear-gradient(135deg, #F95738, #FFCC70);
-  height: 100vh;
-}
+  height: 160vh;
+} 
 
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 2em;
 }
+
+/* Ekran startowy */
 
 header {
   display: flex;
@@ -23,6 +26,7 @@ header {
   flex-direction: column;
   align-items: center;
   gap: 1em;
+  text-align: center;
 }
 
 header > h1 {
@@ -46,30 +50,44 @@ header > button {
   font-size: 24px;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/*Układ pytań*/
+header > button:hover {
+  background-color: #1c2240;
+}
+
+/* Układ pytań */
 
 .single-question {
   display: flex;
-  margin: 1.5em 5em 0;
+  margin: 1.5em 4em 0;
   padding-top: 1em;
-  gap: 2em;
+  gap: 1.5em;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2em;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .single-question > h2 {
   color: #4D5B9E;
   font-size: 22px;
   font-weight: 700;
-} 
+  text-align: center;
+}
 
-/* Układ odpowiedzi*/
+/* Układ odpowiedzi */
 
 .answer-container {
   display: flex;
-  gap: 1em;
+  flex-wrap: wrap;
+  gap: .8em;
+  justify-content: center;
 }
 
 .answer-container > button {
@@ -80,7 +98,34 @@ header > button {
   background: #2C698D;
   font-size: 14px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
+.answer-container > button:hover:not(:disabled) {
+  background-color: #3c7da3;
+}
 
+.answer-container > button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
+/* Styl zaznaczonej odpowiedzi */
+
+.selected {
+  border: 3px solid lightgreen !important;
+  background-color: #e0ffe0 !important;
+  color: #293264 !important;
+  font-weight: bold;
+}
+
+.check-Button {
+  margin-top: 2.8em;
+  border: 2px solid #4D5B9E;
+  border-radius: 15px;
+  padding: 1.5em 3em;
+  color: #FFF;
+  background: #2C698D;
+  font-size: 25px;
+  cursor: pointer;
+}
